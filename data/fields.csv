@@ -9,7 +9,6 @@ identified-from,Identified in,No,Yes,No,No,60,text,
 review-link,Review link,No,Yes,No,No,70,url,View review
 description,Description,No,Yes,No,No,80,longtext,
 description_reference,Reference,No,Yes,No,No,100,longtext,
-reference-link,Link,No,Yes,No,No,105,url,View reference
 plain-language_description,Plain-language description,No,Yes,No,No,90,longtext,
 full-version-of-measure,Full version of measure,No,Yes,No,No,110,url,View instrument resource
 image,Instrument image,No,Yes,No,No,150,image,
