@@ -2,7 +2,7 @@
 
 - `data/instruments.csv` contains the instrument records.
 - `data/fields.csv` controls which fields appear in the main table, pop-up, filters, and search.
-- `images/` contains the replaceable team logo and optional instrument graphics.
+- `images/` contains the SAH HOPE logo and instrument graphics.
 - URL fields can render as clickable links with link text configured entirely in `data/fields.csv`.
 
 ## Folder structure
@@ -48,6 +48,17 @@ Supported `format` values:
 
 
 
+
+
+## Instrument pop-up navigation
+
+The instrument pop-up supports faster browsing through the instruments currently shown by the active search and filters:
+
+- **Sticky footer navigation** keeps `Previous`, the record position (for example, `3 of 14`), and `Next` visible while scrolling through long records.
+- **Desktop side arrows** provide an additional visual way to move between records on wider screens. They are hidden on smaller screens to avoid covering content.
+- **Keyboard navigation**: while the pop-up is open, use the left and right arrow keys to move to the previous or next instrument.
+- Navigation follows the **currently filtered list**, rather than always moving through every instrument in the database.
+- Previous/Next controls are automatically disabled at the first and last matching records.
 
 ## Prototype disclaimer
 
