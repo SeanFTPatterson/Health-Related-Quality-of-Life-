@@ -36,11 +36,31 @@
   .badge{display:inline-block;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;background:#f1f3f5;color:#495057}.b-retained{background:var(--ok);color:#23613b}.b-review{background:var(--warn);color:#7a5a00}.b-identified{background:var(--info);color:#285ea8}
   .footerbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:18px}.btn{appearance:none;border:1px solid #cfd8df;background:#fff;padding:10px 13px;border-radius:8px;font-weight:700;color:var(--accent);cursor:pointer}.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
   dialog{width:min(800px,92vw);max-height:90vh;border:0;border-radius:14px;padding:0;box-shadow:0 24px 80px rgba(0,0,0,.28);overflow:auto} dialog::backdrop{background:rgba(17,24,39,.48)}
-  .modal-head{padding:22px 24px;background:#f8fafb;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px}.modal-body{padding:22px 24px 26px}.close{border:0;background:transparent;font-size:24px;cursor:pointer;color:var(--muted)}
-  .modal-navigation{position:sticky;bottom:0;z-index:15;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:rgba(248,250,251,.97);backdrop-filter:blur(6px);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.06)}
+  .modal-head{position:sticky;top:0;z-index:18;padding:16px 20px;background:rgba(248,250,251,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:15px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+  .modal-title-wrap{min-width:0;flex:1}
+  .modal-head-topline{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+  .back-results{appearance:none;border:0;background:transparent;padding:0;color:var(--accent);font-weight:800;cursor:pointer;font-size:13px}
+  .back-results:hover{text-decoration:underline}
+  .modal-head-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .copy-link{appearance:none;border:1px solid #cfd8df;background:#fff;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:800;color:var(--accent);cursor:pointer;white-space:nowrap}
+  .copy-link:hover{background:var(--accent2)}
+  .modal-body{padding:22px 24px 26px}
+  .close{border:0;background:transparent;font-size:24px;cursor:pointer;color:var(--muted);line-height:1}
+  .modal-navigation{position:sticky;bottom:0;z-index:18;display:grid;grid-template-columns:auto minmax(220px,1fr) auto;align-items:center;gap:14px;padding:12px 20px;background:rgba(248,250,251,.98);backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.07)}
   .modal-navigation .btn{min-width:120px}
-  .record-position{color:var(--muted);font-size:14px;font-weight:700;text-align:center;white-space:nowrap}
+  .record-nav-center{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+  .record-position{color:var(--muted);font-size:13px;font-weight:800;text-align:center;white-space:nowrap}
+  .record-jump{max-width:360px;width:100%;padding:8px 10px;font-size:13px;border-radius:8px}
+  .keyboard-hints{font-size:11px;color:var(--muted);white-space:nowrap}
   .modal-navigation button:disabled,.side-nav:disabled{opacity:.32;cursor:not-allowed}
+  .viewed-marker{display:inline-flex;align-items:center;gap:4px;margin-left:7px;padding:2px 7px;border-radius:999px;background:var(--ok);color:#23613b;font-size:10px;font-weight:800;vertical-align:middle}
+  tr.viewed-row td{background:#fcfdfd}
+  tr.active-row td{background:#eef5f8}
+  tr.return-highlight td{animation:returnHighlight 2.4s ease-out}
+  @keyframes returnHighlight{0%{background:#dfeef4}65%{background:#f3f8fa}100%{background:transparent}}
+  .instrument-record-link{color:inherit;text-decoration:none}
+  .instrument-record-link:hover{text-decoration:underline}
+  .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
   .side-nav{position:fixed;top:50%;transform:translateY(-50%);z-index:20;width:48px;height:72px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.97);color:var(--accent);font-size:36px;line-height:1;cursor:pointer;box-shadow:0 5px 18px rgba(0,0,0,.14)}
   .side-nav:hover:not(:disabled){background:var(--accent2)}
   .side-nav:focus-visible{outline:3px solid rgba(36,74,99,.28);outline-offset:3px}
@@ -51,7 +71,7 @@
   .long-section{margin-top:22px}.section-title{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:800;margin:0 0 8px}.long-section div{line-height:1.6}
   .empty{padding:30px;text-align:center;color:var(--muted)}
   @media(max-width:950px){.side-nav{display:none}}
-  @media(max-width:700px){h1{font-size:28px}.meta{align-items:flex-start;flex-direction:column}.detail-grid{grid-template-columns:1fr}.detail-grid dt{margin-top:10px}.team-logo{width:78px;height:78px}.modal-logo{width:68px;height:68px}.modal-navigation{padding:12px 14px;gap:8px}.modal-navigation .btn{min-width:0;flex:1;padding:10px 8px}.record-position{font-size:12px}}
+  @media(max-width:700px){h1{font-size:28px}.meta{align-items:flex-start;flex-direction:column}.detail-grid{grid-template-columns:1fr}.detail-grid dt{margin-top:10px}.team-logo{width:78px;height:78px}.modal-logo{width:68px;height:68px}.modal-head{padding:14px}.modal-head-actions{gap:4px}.copy-link{padding:7px 8px;font-size:11px}.modal-navigation{grid-template-columns:1fr 1.5fr 1fr;padding:10px 10px;gap:7px}.modal-navigation .btn{min-width:0;padding:9px 7px;font-size:12px}.record-position{font-size:11px}.record-jump{font-size:12px;padding:7px 8px}.keyboard-hints{display:none}.viewed-marker{font-size:9px;padding:2px 5px}.back-results{font-size:12px}}
 </style>
 </head>
 <body>
@@ -72,7 +92,7 @@
     <div><label for="search">Search instruments</label><input id="search" placeholder="Search instrument information…" /></div>
   </div>
 
-  <div class="meta"><div><strong id="count">0</strong> instruments shown</div><div>Database version: <strong>Prototype 0.1</strong> · Updated September 2026</div></div>
+  <div class="meta"><div><strong id="count">0</strong> instruments shown</div><div>Database version: <strong>Prototype 0.2</strong> · Updated October 2026</div></div>
 
   <div class="table-card"><div class="table-wrap"><table>
     <thead><tr id="tableHead"></tr></thead>
@@ -81,7 +101,7 @@
 
   <div class="footerbar">
     <div style="color:var(--muted);font-size:14px">Tip: select any row to open the full instrument record.</div>
-    <div><button class="btn" id="reset">Reset filters</button> <button class="btn primary" id="download">Download current dataset (.csv)</button></div>
+    <div><button class="btn" id="reset">Reset filters</button> <button class="btn" id="clearViewed">Clear viewed markers</button> <button class="btn primary" id="download">Download current dataset (.csv)</button></div>
   </div>
 
   <div class="page-logo-wrap">
@@ -93,11 +113,31 @@
 <dialog id="dialog">
   <button class="side-nav side-nav-left" id="previousInstrumentSide" aria-label="Previous instrument" title="Previous instrument">‹</button>
   <button class="side-nav side-nav-right" id="nextInstrumentSide" aria-label="Next instrument" title="Next instrument">›</button>
-  <div class="modal-head"><div><div class="eyebrow" style="color:var(--muted);opacity:1">Instrument record</div><h2 id="mName" style="margin:2px 0 0;font-size:25px"></h2></div><button class="close" id="close" aria-label="Close">×</button></div>
+
+  <div class="modal-head">
+    <div class="modal-title-wrap">
+      <div class="modal-head-topline">
+        <button class="back-results" id="backToResults">← Back to results</button>
+        <div class="eyebrow" style="color:var(--muted);opacity:1;margin:0">Instrument record</div>
+      </div>
+      <h2 id="mName" style="margin:0;font-size:25px"></h2>
+    </div>
+    <div class="modal-head-actions">
+      <button class="copy-link" id="copyRecordLink" type="button">Copy link</button>
+      <button class="close" id="close" aria-label="Close" title="Close">×</button>
+    </div>
+  </div>
+
   <div class="modal-body" id="modalBody"></div>
+
   <div class="modal-navigation" aria-label="Instrument navigation">
     <button class="btn" id="previousInstrument">← Previous</button>
-    <span id="recordPosition" class="record-position" aria-live="polite"></span>
+    <div class="record-nav-center">
+      <span id="recordPosition" class="record-position" aria-live="polite"></span>
+      <label class="visually-hidden" for="recordJump">Jump to instrument</label>
+      <select id="recordJump" class="record-jump" aria-label="Jump to instrument"></select>
+      <span class="keyboard-hints">← / → Browse · Esc Close</span>
+    </div>
     <button class="btn" id="nextInstrument">Next →</button>
   </div>
 </dialog>
@@ -107,6 +147,11 @@ let instruments = [];
 let instrumentHeaders = [];
 let fields = [];
 let filterControls = {};
+let currentRecordId = null;
+let originatingRecordId = null;
+let highlightedRecordId = null;
+let resultsScrollY = 0;
+const VIEWED_KEY = 'asah-hrqol-viewed-instruments';
 
 function parseCSV(text) {
   const rows = []; let row = [], field = '', quoted = false;
@@ -136,6 +181,34 @@ function yes(v){ return String(v || '').trim().toLowerCase() === 'yes'; }
 function escapeHTML(v){ return String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
 function sortedFields(predicate){ return fields.filter(predicate).sort((a,b)=>(Number(a.display_order)||9999)-(Number(b.display_order)||9999)); }
 
+function getViewedInstruments(){
+  try{ return new Set(JSON.parse(localStorage.getItem(VIEWED_KEY) || '[]')); }
+  catch{ return new Set(); }
+}
+function markInstrumentViewed(id){
+  if(!id) return;
+  const viewed=getViewedInstruments();
+  viewed.add(id);
+  localStorage.setItem(VIEWED_KEY,JSON.stringify([...viewed]));
+}
+function clearViewedInstruments(){ localStorage.removeItem(VIEWED_KEY); render(); }
+function instrumentDisplayName(record){
+  const primary=fields.find(f=>f.format==='primary') || fields.find(f=>f.field==='name');
+  const name=String(primary ? record[primary.field] : record.name || '').trim();
+  const acronym=String(record.acronym || '').trim();
+  return acronym ? `${name} (${acronym})` : name;
+}
+function recordUrl(id){
+  const url=new URL(window.location.href);
+  url.searchParams.set('instrument',id);
+  return url;
+}
+function updateBrowserRecordUrl(id){
+  const url=new URL(window.location.href);
+  if(id) url.searchParams.set('instrument',id); else url.searchParams.delete('instrument');
+  history.replaceState(null,'',url);
+}
+
 function badge(value){
   const s=String(value || ''); const low=s.toLowerCase();
   const c=low.startsWith('retained')?'b-retained':low.startsWith('under')?'b-review':low.startsWith('identified')?'b-identified':'';
@@ -147,7 +220,12 @@ function formatValue(field, record, context='table'){
   if (field.format === 'badge') return badge(value);
   if (field.format === 'primary') {
     const acronym = record.acronym ? ` <span class="acronym">(${escapeHTML(record.acronym)})</span>` : '';
-    return `<span class="name">${escapeHTML(value)}${acronym}</span>`;
+    const viewed = context==='table' && record.id && getViewedInstruments().has(record.id) ? ` <span class="viewed-marker" title="Viewed">✓ Viewed</span>` : '';
+    if(context==='table' && record.id){
+      const href=recordUrl(record.id);
+      return `<span class="name"><a class="instrument-record-link" data-record-id="${escapeHTML(record.id)}" href="${escapeHTML(href.pathname + href.search + href.hash)}">${escapeHTML(value)}${acronym}</a>${viewed}</span>`;
+    }
+    return `<span class="name">${escapeHTML(value)}${acronym}${viewed}</span>`;
   }
   if (field.format === 'url') {
     const raw = String(value || '').trim();
@@ -200,21 +278,37 @@ function filteredRows(){
 
 function render(){
   const rows=filteredRows(); const tableFields=sortedFields(f=>yes(f.table)); const tbody=document.getElementById('tbody');
+  const viewed=getViewedInstruments();
   document.getElementById('count').textContent=rows.length; document.getElementById('empty').hidden=rows.length!==0;
   tbody.innerHTML=rows.map((record,index)=>{
     const id=record.id || `row-${index}`;
     const cells=tableFields.map(f=>`<td>${formatValue(f,record,'table')}</td>`).join('');
-    return `<tr class="instrument-row" data-record-id="${escapeHTML(id)}">${cells}</tr>`;
+    const classes=['instrument-row'];
+    if(viewed.has(id)) classes.push('viewed-row');
+    if(dialog && dialog.open && id===currentRecordId) classes.push('active-row');
+    if(id===highlightedRecordId) classes.push('return-highlight');
+    return `<tr class="${classes.join(' ')}" data-record-id="${escapeHTML(id)}" tabindex="0">${cells}</tr>`;
   }).join('');
-  tbody.querySelectorAll('.instrument-row').forEach(r=>r.addEventListener('click',()=>openRecord(r.dataset.recordId)));
-  tbody.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>e.stopPropagation()));
+
+  tbody.querySelectorAll('.instrument-row').forEach(r=>{
+    r.addEventListener('click',e=>{ if(e.target.closest('a')) return; openRecord(r.dataset.recordId,{fromResults:true}); });
+    r.addEventListener('keydown',e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openRecord(r.dataset.recordId,{fromResults:true}); } });
+  });
+  tbody.querySelectorAll('.instrument-record-link').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.stopPropagation();
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button!==0) return;
+      e.preventDefault(); openRecord(a.dataset.recordId,{fromResults:true});
+    });
+  });
+  tbody.querySelectorAll('a:not(.instrument-record-link)').forEach(a=>a.addEventListener('click',e=>e.stopPropagation()));
 }
 
 document.getElementById('search').addEventListener('input',render);
 document.getElementById('reset').onclick=()=>{ document.getElementById('search').value=''; Object.values(filterControls).forEach(c=>c.value=''); render(); };
+document.getElementById('clearViewed').onclick=clearViewedInstruments;
 
 const dialog=document.getElementById('dialog');
-let currentRecordId = null;
 
 function updateRecordNavigation(){
   const rows=filteredRows();
@@ -224,36 +318,60 @@ function updateRecordNavigation(){
   const previousSide=document.getElementById('previousInstrumentSide');
   const nextSide=document.getElementById('nextInstrumentSide');
   const position=document.getElementById('recordPosition');
+  const jump=document.getElementById('recordJump');
+
+  jump.innerHTML='';
+  rows.forEach((record,index)=>{
+    const option=document.createElement('option');
+    option.value=record.id || '';
+    option.textContent=`${index+1}. ${instrumentDisplayName(record)}`;
+    jump.appendChild(option);
+  });
 
   if(currentIndex===-1){
     [previousButton,nextButton,previousSide,nextSide].forEach(button=>button.disabled=true);
-    position.textContent='';
-    return;
+    position.textContent=''; jump.disabled=true; return;
   }
 
-  const atFirst=currentIndex===0;
-  const atLast=currentIndex===rows.length-1;
-  previousButton.disabled=atFirst;
-  previousSide.disabled=atFirst;
-  nextButton.disabled=atLast;
-  nextSide.disabled=atLast;
+  jump.disabled=false; jump.value=currentRecordId;
+  const atFirst=currentIndex===0, atLast=currentIndex===rows.length-1;
+  previousButton.disabled=atFirst; previousSide.disabled=atFirst;
+  nextButton.disabled=atLast; nextSide.disabled=atLast;
   position.textContent=`${currentIndex+1} of ${rows.length}`;
 
-  const goPrevious=()=>{ if(currentIndex>0) openRecord(rows[currentIndex-1].id); };
-  const goNext=()=>{ if(currentIndex<rows.length-1) openRecord(rows[currentIndex+1].id); };
-
-  previousButton.onclick=goPrevious;
-  previousSide.onclick=goPrevious;
-  nextButton.onclick=goNext;
-  nextSide.onclick=goNext;
+  const goPrevious=()=>{ if(currentIndex>0) openRecord(rows[currentIndex-1].id,{fromNavigation:true}); };
+  const goNext=()=>{ if(currentIndex<rows.length-1) openRecord(rows[currentIndex+1].id,{fromNavigation:true}); };
+  previousButton.onclick=goPrevious; previousSide.onclick=goPrevious;
+  nextButton.onclick=goNext; nextSide.onclick=goNext;
+  jump.onchange=()=>{ if(jump.value && jump.value!==currentRecordId) openRecord(jump.value,{fromNavigation:true}); };
 }
 
-function openRecord(id){
+function returnToResults(){
+  highlightedRecordId=originatingRecordId || currentRecordId;
+  updateBrowserRecordUrl(null);
+  if(dialog.open) dialog.close();
+}
+
+async function copyCurrentRecordLink(){
+  if(!currentRecordId) return;
+  const link=recordUrl(currentRecordId).href;
+  const button=document.getElementById('copyRecordLink');
+  try{
+    await navigator.clipboard.writeText(link);
+    const original=button.textContent; button.textContent='Copied!';
+    setTimeout(()=>{button.textContent=original;},1400);
+  }catch{ window.prompt('Copy this instrument link:',link); }
+}
+
+function openRecord(id,options={}){
   const record=instruments.find(i=>(i.id || '')===id); if(!record) return;
-  currentRecordId=id;
+  if(options.fromResults && !dialog.open){ originatingRecordId=id; resultsScrollY=window.scrollY; }
+  else if(!dialog.open && !originatingRecordId){ resultsScrollY=window.scrollY; }
+
+  currentRecordId=id; highlightedRecordId=null; markInstrumentViewed(id); updateBrowserRecordUrl(id);
   const primary=fields.find(f=>f.format==='primary') || fields.find(f=>f.field==='name');
   const titleValue=primary ? record[primary.field] : record.name || 'Instrument record';
-  document.getElementById('mName').textContent=`${titleValue || ''}${record.acronym ? ` (${record.acronym})` : ''}`;
+  document.getElementById('mName').textContent=instrumentDisplayName(record) || titleValue || 'Instrument record';
 
   const modal=document.getElementById('modalBody'); modal.innerHTML='';
   const imageField=fields.find(f=>f.format==='image' && yes(f.popup));
@@ -267,36 +385,56 @@ function openRecord(id){
     .filter(f=>f.format !== 'url' || String(record[f.field] || '').trim() !== '');
   if(regular.length){
     const dl=document.createElement('dl'); dl.className='detail-grid';
-    regular.forEach(f=>{const dt=document.createElement('dt');dt.textContent=f.label || f.field;const dd=document.createElement('dd');dd.innerHTML=formatValue(f,record,'popup');dl.append(dt,dd)});
+    regular.forEach(f=>{
+      const dd=document.createElement('dd'); dd.innerHTML=formatValue(f,record,'popup');
+      const label=String(f.label ?? '').trim();
+      if(label){ const dt=document.createElement('dt'); dt.textContent=label; dl.append(dt,dd); }
+      else { dd.style.gridColumn='1 / -1'; dl.append(dd); }
+    });
     modal.appendChild(dl);
   }
 
   sortedFields(f=>yes(f.popup) && f.format==='longtext').forEach(f=>{
     const sec=document.createElement('section');sec.className='long-section';
-    const h=document.createElement('div');h.className='section-title';h.textContent=f.label || f.field;
-    const body=document.createElement('div');body.textContent=record[f.field] || 'Not specified';sec.append(h,body);modal.appendChild(sec);
+    const label=String(f.label ?? '').trim();
+    if(label){ const h=document.createElement('div');h.className='section-title';h.textContent=label;sec.appendChild(h); }
+    const body=document.createElement('div');body.textContent=record[f.field] || 'Not specified';sec.appendChild(body);modal.appendChild(sec);
   });
 
   const logoWrap=document.createElement('div');logoWrap.className='modal-logo-wrap';
-  const logo=document.createElement('img');logo.className='modal-logo';logo.src='images/team-logo.svg';logo.alt='Team logo placeholder';
+  const logo=document.createElement('img');logo.className='modal-logo';logo.src='images/team-logo.svg';logo.alt='SAH HOPE logo';
   logoWrap.appendChild(logo);modal.appendChild(logoWrap);
 
   updateRecordNavigation();
   if(!dialog.open) dialog.showModal();
+  render();
   requestAnimationFrame(()=>dialog.scrollTo({top:0,behavior:'auto'}));
 }
-document.getElementById('close').onclick=()=>dialog.close();
-dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+
+document.getElementById('backToResults').onclick=returnToResults;
+document.getElementById('close').onclick=returnToResults;
+document.getElementById('copyRecordLink').onclick=copyCurrentRecordLink;
+dialog.addEventListener('click',e=>{if(e.target===dialog)returnToResults()});
+dialog.addEventListener('close',()=>{
+  const targetId=highlightedRecordId || originatingRecordId || currentRecordId;
+  updateBrowserRecordUrl(null); currentRecordId=null; originatingRecordId=null; render();
+  requestAnimationFrame(()=>{
+    window.scrollTo({top:resultsScrollY,behavior:'auto'});
+    if(targetId){
+      const row=[...document.querySelectorAll('.instrument-row')].find(r=>r.dataset.recordId===targetId);
+      if(row){ row.classList.add('return-highlight'); row.focus({preventScroll:true}); }
+    }
+  });
+});
+
 document.addEventListener('keydown',e=>{
   if(!dialog.open || e.altKey || e.ctrlKey || e.metaKey) return;
   const active=document.activeElement;
   if(active && (['INPUT','TEXTAREA','SELECT'].includes(active.tagName) || active.isContentEditable)) return;
   if(e.key==='ArrowLeft'){
-    const button=document.getElementById('previousInstrument');
-    if(!button.disabled){ e.preventDefault(); button.click(); }
+    const button=document.getElementById('previousInstrument'); if(!button.disabled){ e.preventDefault(); button.click(); }
   } else if(e.key==='ArrowRight'){
-    const button=document.getElementById('nextInstrument');
-    if(!button.disabled){ e.preventDefault(); button.click(); }
+    const button=document.getElementById('nextInstrument'); if(!button.disabled){ e.preventDefault(); button.click(); }
   }
 });
 
@@ -318,6 +456,9 @@ async function init(){
     instruments=instrumentData.records; instrumentHeaders=instrumentData.headers; fields=fieldData.records;
     fields=fields.filter(f=>instrumentHeaders.includes(f.field));
     buildInterface(); render();
+
+    const requestedId=new URL(window.location.href).searchParams.get('instrument');
+    if(requestedId && instruments.some(record=>(record.id || '')===requestedId)){ openRecord(requestedId,{fromUrl:true}); }
   }catch(err){
     console.error(err); const empty=document.getElementById('empty');empty.hidden=false;empty.textContent='Could not load the CSV configuration/data files. This prototype is designed to run from GitHub Pages (or another web server), not directly from a local file.';
   }
