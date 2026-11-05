@@ -1,0 +1,18 @@
+field,value,background,text
+*,0,#E8F2E1,#315C1F
+*,1,#FCE6CF,#8A4A08
+*,2,#F8DDE2,#8C1630
+*,U,#FFFFFF,#666666
+*,Good,#e8f5ee,#23613b
+*,Somewhat good,#fff6dd,#7a5a00
+*,Somewhat poor,#FCE6CF,#8A4A08
+*,Poor,#fdecec,#9b2c2c
+*,No evidence,#ffffff,#667085
+*,Unable to judge,#eef2f6,#475467
+*,Present,#e8f5ee,#23613b
+*,Absent,#fdecec,#9b2c2c
+*,Yes,#e8f5ee,#23613b
+*,No,#fdecec,#9b2c2c
+status,Identified,#edf4ff,#285ea8
+status,Retained,#e8f5ee,#23613b
+status,Under review,#fff6dd,#7a5a00
