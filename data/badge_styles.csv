@@ -17,5 +17,5 @@ field,value,background,text
 *,No,#fdecec,#9b2c2c
 status,Identified,#edf4ff,#285ea8
 status,Retained,#e8f5ee,#23613b
-status,Under review,#fff6dd,#7a5a00
+status,Under review,#eef2f6,#475467
 status,Removed from further COS consideration,#fdecec,#9b2c2c
