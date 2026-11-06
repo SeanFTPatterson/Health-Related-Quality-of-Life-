@@ -9,6 +9,7 @@ field,value,background,text
 *,Poor,#fdecec,#9b2c2c
 *,No evidence,#ffffff,#667085
 *,Unable to judge,#eef2f6,#475467
+*,Not assessed,#DEE2E6,#343A40
 *,Present,#e8f5ee,#23613b
 *,Absent,#fdecec,#9b2c2c
 *,Yes,#e8f5ee,#23613b
