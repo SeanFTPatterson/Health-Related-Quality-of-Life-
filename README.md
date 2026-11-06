@@ -1,6 +1,6 @@
-# Health-Related Quality of Life (HRQoL) aSAH Measurement Instrument Database — Version 1
+# Health-Related Quality of Life (HRQoL) aSAH Measurement Instrument Database — Version 2
 
-> **About this update:** This version updates the **HRQoL Prototype 0.2 HTML and README uploaded November 5, 2026**, incorporating the latest Functional Outcomes interface features. It retains the original HRQoL domain name, data paths, existing instrument-record functionality, and browser viewing-history key. Your existing HRQoL `data/instruments.csv`, `data/fields.csv`, images, and `.nojekyll` remain in place; they are not included in this package. The supplied `badge_styles.csv` is optional.
+> **About this update:** This version updates the **HRQoL Version 1**, incorporating the latest Functional Outcomes interface features. It retains the original HRQoL domain name, data paths, existing instrument-record functionality, and browser viewing-history key. Your existing HRQoL `data/instruments.csv`, `data/fields.csv`, images, and `.nojekyll` remain in place; they are not included in this package. The supplied `badge_styles.csv` is optional.
 
 > **Data-driven tabs:** Domain Match components and Feasibility columns are drawn from your HRQoL `fields.csv` and `instruments.csv`. If your CSVs have no component-level or feasibility fields, the new views show an explanatory empty state until these fields are added. No fictional HRQoL assessments have been inserted.
 

@@ -17,3 +17,4 @@ field,value,background,text
 status,Identified,#edf4ff,#285ea8
 status,Retained,#e8f5ee,#23613b
 status,Under review,#fff6dd,#7a5a00
+status,Removed from further COS consideration,#fdecec,#9b2c2c
