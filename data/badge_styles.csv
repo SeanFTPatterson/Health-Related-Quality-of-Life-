@@ -11,6 +11,7 @@ field,value,background,text
 *,Unable to judge,#eef2f6,#475467
 *,Not assessed,#DEE2E6,#343A40
 *,Present,#e8f5ee,#23613b
+*,Partial,#FCE6CF,#8A4A08
 *,Absent,#fdecec,#9b2c2c
 *,Yes,#e8f5ee,#23613b
 *,No,#fdecec,#9b2c2c
