@@ -8,13 +8,15 @@
 
 1. Replace the existing root `index.html` with the updated HTML in this package.
 2. Replace the root `README.md` if you would like the updated configuration guidance.
-3. Optionally place the supplied `badge_styles.csv` in the existing `data/` folder to customise the rating colours. **The site does not require this new CSV to load.**
-4. **Do not replace** your original `data/instruments.csv`, `data/fields.csv`, `images/` folder, or `.nojekyll` file.
+3. Upload the supplied **`data/top_instruments.csv`** to the `data/` folder. This new file is required only for the Top Instruments tab.
+4. Optionally place `badge_styles.csv` in the existing `data/` folder to customise the rating colours. **The site does not require this CSV to load.**
+5. **Do not replace** your original `data/instruments.csv`, `data/fields.csv`, `images/` folder, or `.nojekyll` file.
 
 Your existing HRQoL summary table, filters, deep links and record details continue to read their original CSV fields. The new Domain Match and Feasibility views display only fields that exist in your own CSVs: see the `heatmap` and `feasibility` configuration sections below. No invented assessments are included. The app will show an informative empty state for a comparison view until it is configured.
 
 - `data/instruments.csv` contains the instrument records.
 - `data/fields.csv` controls which fields appear in the main table, pop-up, filters, and search.
+- `data/top_instruments.csv` controls the Top Instruments list, vote totals, optional notes and links to instrument records.
 - `images/` contains the SAH HOPE logo and instrument graphics.
 - URL fields can render as clickable links with link text configured entirely in `data/fields.csv`.
 
@@ -28,6 +30,7 @@ README.md
 data/
   instruments.csv
   fields.csv
+  top_instruments.csv
   badge_styles.csv     # optional; built-in fallback palette
 
 images/
@@ -192,11 +195,12 @@ Native popovers are also placed in the browser's **top layer**, so the rationale
 
 ## Domain Match heat map view
 
-The results page now includes a three-option view toggle:
+The results page now includes a four-option view toggle:
 
 - **Standard view** — preserves the existing configurable summary table and row-to-record navigation.
 - **Domain Match** — compares component-level Domain Match ratings across the same instruments currently shown by the active search and filters.
 - **Feasibility** — provides a horizontally scrollable comparison table for categorical feasibility ratings and open-text information, with all configured fields shown in one view.
+- **Top Instruments** — displays the voting shortlist from `data/top_instruments.csv`, ordered by vote count and independent of search filters.
 
 The selected view is saved in the visitor's browser using `localStorage`, so returning to the page restores the last-used view when no view is specified in the URL.
 
@@ -207,6 +211,7 @@ Each results tab now has its own direct URL. Replace `https://YOUR-SITE-URL/` wi
 - **Standard view:** `https://YOUR-SITE-URL/?view=standard`
 - **Domain Match:** `https://YOUR-SITE-URL/?view=domain-match`
 - **Feasibility:** `https://YOUR-SITE-URL/?view=feasibility`
+- **Top Instruments:** `https://YOUR-SITE-URL/?view=top-instruments`
 
 Selecting a tab updates the browser address automatically, without reloading the database. To share a tab, copy its URL directly from the browser address bar (there is no separate Copy tab link button). When someone follows a link, the specified tab opens directly even if they previously selected another tab. Browser Back and Forward buttons also switch between previously visited tabs.
 
@@ -262,6 +267,28 @@ The heat map automatically builds a legend from rating values present in the cur
 ### Filtering and instrument records
 
 The heat map is not a separate dataset. It uses `filteredRows()`, so all existing search and dropdown filters apply identically in both views. Selecting an instrument name in the heat map opens the same detailed instrument record, including viewed markers and record navigation.
+
+## Top Instruments shortlist — CSV-configurable
+
+The **Top Instruments** tab shows ten HRQoL instruments recommended for further consideration, ordered from the most votes to the fewest. The supplied CSV contains **16 votes across 10 instruments** (4, 3, 2, and seven entries with 1 vote). Equal vote counts share the same rank; instruments with one vote are tied. Votes are not final COS endorsements.
+
+Edit **`data/top_instruments.csv`** to update the shortlist without changing HTML. Add or remove rows, edit votes, or revise instrument names. The page automatically sorts valid rows by `votes` (descending), assigns shared ranks, and redraws the vote bars. The shortlist is not filtered by the search toolbar.
+
+| CSV column | Required | Description |
+|---|---|---|
+| `name` | Yes | Instrument name displayed and used for matching. |
+| `votes` | Yes | Non-negative whole-number vote count. |
+| `acronym` | No | Acronym displayed and used for record matching. |
+| `display_name` | No | Optional custom display label, replacing name and acronym display when supplied. |
+| `aliases` | No | Alternative names for record matching, separated with `|`. |
+| `record_id` | No | Exact `id` in `data/instruments.csv` for guaranteed linking when names are ambiguous. |
+| `note` | No | Optional note displayed below the instrument name and included in CSV exports. The Neuro-QoL entry uses this field to explain that its vote followed an improved Domain Match rating. |
+
+**Record links.** The tab attempts to find a unique matching record in your existing HRQoL `data/instruments.csv`, using `name`, `acronym` and any `aliases`. If exactly one record matches, its name opens the full instrument pop-up and previous/next follows the shortlist. If it does not match unambiguously, the shortlist still displays the item but without a record link. To fix this, place the exact existing record's `id` into the CSV's `record_id` field. This update cannot verify the actual record IDs because that CSV was not provided.
+
+**Print & download.** The current-view print button includes the votes and the Neuro-QoL note; the download button exports the ranked list including the note. The tab URL is `?view=top-instruments` and is shareable. If the top CSV is absent or malformed, the tab shows an explanatory message while other tabs continue to work.
+
+**Updating on GitHub:** Upload the new `index.html` and `data/top_instruments.csv` once. For subsequent voting updates, edit only `data/top_instruments.csv`, then commit the change. Keep your existing `data/instruments.csv`, `data/fields.csv`, optional `data/badge_styles.csv`, images and `.nojekyll` unchanged.
 
 ## Feasibility comparison view
 

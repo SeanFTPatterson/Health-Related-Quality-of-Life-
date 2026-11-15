@@ -76,6 +76,20 @@
   .feasibility-text-cell{min-width:260px;max-width:340px;text-align:left}
   .feasibility-group-label{display:block;margin-bottom:5px;color:#98a2b3;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
   .feasibility-text-inline{font-size:12px;line-height:1.45;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+  .top-intro{margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.6}
+   .top-table{min-width:620px}
+   .top-table .top-rank{width:88px;text-align:center;font-weight:800;color:var(--accent)}
+   .top-table .top-votes{width:220px}
+   .top-table tbody tr:hover td{background:#fbfcfd}
+   .top-name{font-weight:800;color:var(--accent)}
+   .top-not-linked{color:var(--muted);font-size:12px;margin-top:5px;font-weight:500}
+   .top-vote-display{display:flex;align-items:center;gap:12px}
+   .top-vote-count{min-width:20px;font-weight:800;font-size:16px;color:var(--accent);font-variant-numeric:tabular-nums}
+   .top-vote-track{width:105px;height:9px;border-radius:99px;background:#e7eef3;overflow:hidden}
+   .top-vote-fill{height:100%;border-radius:99px;background:#315f78}
+   @media(max-width:700px){.top-table{min-width:540px}.top-table .top-votes{width:150px}.top-vote-track{width:65px}}
+  .top-note{margin-top:5px;font-size:12px;line-height:1.45;color:#52697b;max-width:680px}
+  .toolbar[hidden]{display:none!important}
   tr.instrument-row{cursor:pointer} tr.instrument-row:hover{background:#fbfcfd}.name{font-weight:700;color:var(--accent)}.acronym{color:var(--muted);font-weight:500}
   .badge{display:inline-block;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;background:#f1f3f5;color:#495057}.b-retained{background:var(--ok);color:#23613b}.b-review{background:var(--warn);color:#7a5a00}.b-identified{background:var(--info);color:#285ea8}
   .badge-rationale{appearance:none;border:0;font-family:inherit;line-height:1.2;cursor:help;display:inline-flex;align-items:center;gap:5px}
@@ -157,11 +171,18 @@
     .print-document-heading h2{margin:0 0 4px;font-size:18px;line-height:1.2;color:#173b52}
     .print-document-heading .print-meta{display:flex;gap:5px 13px;flex-wrap:wrap;color:#52697b;font-size:10px;line-height:1.35}
     .print-document-heading .print-filter{font-weight:700}
-    #standardView[hidden],#heatmapView[hidden],#feasibilityView[hidden]{display:none!important}
+    #standardView[hidden],#heatmapView[hidden],#feasibilityView[hidden],#topView[hidden]{display:none!important}
     .table-card,.table-wrap,.feasibility-table-wrap{height:auto!important;max-height:none!important;max-width:none!important;overflow:visible!important;box-shadow:none!important;border-radius:0!important}
     .table-card{border:0!important}
-    #standardView,#heatmapView,#feasibilityView{width:100%!important;max-width:none!important}
-    table,.heatmap-table,.feasibility-table{width:100%!important;min-width:0!important;max-width:100%!important;table-layout:fixed!important;border-collapse:collapse!important}
+    #standardView,#heatmapView,#feasibilityView,#topView{width:100%!important;max-width:none!important}
+     #topView .top-intro{font-size:9px!important;line-height:1.45!important;margin-bottom:10px!important;color:#52697b!important}
+     #topView .top-rank{width:12%!important}
+     #topView .top-votes{width:25%!important}
+     #topView .top-vote-track{width:90px!important}
+     #topView .top-vote-count{font-size:11px!important}
+     #topView .top-not-linked{font-size:8px!important}
+     #topView .top-note{font-size:8px!important;color:#52697b!important}
+     table,.heatmap-table,.feasibility-table{width:100%!important;min-width:0!important;max-width:100%!important;table-layout:fixed!important;border-collapse:collapse!important}
     table thead{display:table-header-group!important}
     table tbody{display:table-row-group!important}
     table tr{break-inside:avoid-page;page-break-inside:avoid}
@@ -238,13 +259,14 @@
     <div><label for="search">Search instruments</label><input id="search" placeholder="Search instrument information…" /></div>
   </div>
 
-  <div class="meta"><div><strong id="count">0</strong> instruments shown</div><div>Database version: <strong>Version 2</strong> · Updated November 5, 2026</div></div>
+  <div class="meta"><div><strong id="count">0</strong> <span id="countLabel">instruments shown</span></div><div>Database version: <strong>Version 2</strong> · Updated November 15, 2026</div></div>
 
   <div class="view-bar">
     <div class="view-toggle" role="group" aria-label="Results view">
       <button type="button" class="view-toggle-btn" id="standardViewBtn" aria-pressed="true">Standard view</button>
       <button type="button" class="view-toggle-btn" id="heatmapViewBtn" aria-pressed="false">Domain Match</button>
       <button type="button" class="view-toggle-btn" id="feasibilityViewBtn" aria-pressed="false">Feasibility</button>
+      <button type="button" class="view-toggle-btn" id="topViewBtn" aria-pressed="false">Top Instruments</button>
     </div>
     <div class="view-actions">
       <div class="heatmap-help" id="viewHelp">Browse the summary table, then select an instrument to open its full record.</div>
@@ -285,7 +307,15 @@
     </table><div id="feasibilityEmpty" class="empty" hidden></div></div></div>
   </div>
 
-  <div class="footerbar">
+  <section id="topView" hidden aria-label="Top instruments recommended for consideration">
+     <p class="top-intro">The instruments below received votes for further consideration, ordered from most to fewest votes. Equal vote totals share the same rank. These votes do not represent final Core Outcome Set endorsement.</p>
+     <div class="table-card"><div class="table-wrap"><table class="top-table">
+       <thead><tr><th scope="col" class="top-rank">Rank</th><th scope="col">Instrument</th><th scope="col" class="top-votes">Votes</th></tr></thead>
+       <tbody id="topBody"></tbody>
+     </table><div id="topEmpty" class="empty" hidden role="status"></div></div></div>
+   </section>
+
+   <div class="footerbar">
     <div id="viewTip" style="color:var(--muted);font-size:14px">Tip: select any row to open the full instrument record.</div>
     <div><button class="btn" id="reset">Reset filters</button> <button class="btn" id="clearViewed">Clear viewed markers</button> <button class="btn primary" id="download">Download current dataset (.csv)</button></div>
   </div>
@@ -362,7 +392,7 @@ let resultsScrollY = 0;
 let currentView = 'standard';
 const VIEWED_KEY = 'asah-hrqol-viewed-instruments';
 const RESULTS_VIEW_KEY = 'asah-hrqol-results-view';
-const VIEW_SLUGS = {standard:'standard',heatmap:'domain-match',feasibility:'feasibility'};
+const VIEW_SLUGS = {standard:'standard',heatmap:'domain-match',feasibility:'feasibility',top:'top-instruments'};
 // Baseline colours used when the optional badge_styles.csv does not define a category.
 // If badge_styles.csv is present, its field-specific or wildcard rules take priority.
 const DEFAULT_BADGE_STYLES = [
@@ -384,6 +414,41 @@ const DEFAULT_BADGE_STYLES = [
   ['Retained','#e8f5ee','#23613b'],
   ['Under review','#fff6dd','#7a5a00']
 ].map(([value,background,text])=>({field:'*',value,background,text}));
+
+
+// The shortlist is configured in data/top_instruments.csv, separately from instruments.csv.
+// Blank or missing CSV files never prevent the other database views from loading.
+let topRecommendations = [];
+let topLoadMessage = '';
+
+function loadTopRecommendations({headers,records}){
+  if(!['name','votes'].every(column=>headers.includes(column))){
+    throw new Error('top_instruments.csv requires the columns "name" and "votes".');
+  }
+  const invalidRows=[];
+  const recommendations=records.map((row,index)=>{
+    const name=String(row.name || '').trim();
+    const voteText=String(row.votes || '').trim();
+    const votes=Number(voteText);
+    if(!name || !voteText || !Number.isSafeInteger(votes) || votes<0){
+      invalidRows.push(index+2); // CSV row including the header
+      return null;
+    }
+    return {
+      name,
+      acronym:String(row.acronym || '').trim(),
+      votes,
+      displayName:String(row.display_name || '').trim(),
+      recordId:String(row.record_id || '').trim(),
+      aliases:String(row.aliases || '').split('|').map(value=>value.trim()).filter(Boolean),
+      note:String(row.note || '').trim()
+    };
+  }).filter(Boolean);
+  topLoadMessage=invalidRows.length
+    ? `Rows ${invalidRows.join(', ')} in data/top_instruments.csv were skipped. Each row needs a name and a whole-number vote count of 0 or more.`
+    : '';
+  return recommendations;
+}
 
 
 function parseCSV(text) {
@@ -608,6 +673,7 @@ function viewFromUrl(){
   const value=new URL(window.location.href).searchParams.get('view');
   if(value==='domain-match' || value==='heatmap') return 'heatmap';
   if(value==='feasibility') return 'feasibility';
+  if(value==='top-instruments' || value==='top') return 'top';
   if(value==='standard') return 'standard';
   return null;
 }
@@ -877,27 +943,123 @@ function renderHeatmapLegend(heatFields,rows){
   renderRatingLegend(document.getElementById('heatmapLegend'),heatFields,rows);
 }
 
+// Match the curated list to CSV records without relying on CSV row order.
+// Deliberately avoid linking when the name/acronym is ambiguous.
+function normalizedInstrumentName(value){
+  return String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
+}
+function findTopRecord(recommendation){
+  // Explicit record IDs take precedence, avoiding any accidental name/acronym match.
+  if(recommendation.recordId){
+    const matches=instruments.filter(record=>String(record.id || '')===recommendation.recordId);
+    return matches.length===1 ? matches[0] : null;
+  }
+  const acronym=normalizedInstrumentName(recommendation.acronym);
+  const names=[recommendation.name,...(recommendation.aliases || [])];
+  const aliases=new Set(names.flatMap(name=>[
+    normalizedInstrumentName(name),
+    ...(recommendation.acronym ? [normalizedInstrumentName(`${name} (${recommendation.acronym})`)] : [])
+  ]));
+  const matches=instruments.filter(record=>{
+    const name=normalizedInstrumentName(record.name);
+    const recordAcronym=normalizedInstrumentName(record.acronym);
+    return aliases.has(name) || (acronym && recordAcronym===acronym);
+  });
+  return matches.length===1 ? matches[0] : null;
+}
+function getTopRows(){
+  let previousVotes=null,rank=0;
+  return [...topRecommendations].sort((a,b)=>b.votes-a.votes).map((recommendation,index)=>{
+    if(recommendation.votes!==previousVotes) rank=index+1;
+    previousVotes=recommendation.votes;
+    return {...recommendation,rank,record:findTopRecord(recommendation)};
+  });
+}
+function currentRecordRows(){
+  if(currentView!=='top') return filteredRows();
+  return getTopRows().map(item=>item.record).filter(Boolean);
+}
+function renderTopRecommendations(){
+  const viewed=getViewedInstruments();
+  const maxVotes=Math.max(...topRecommendations.map(item=>item.votes),1);
+  const tbody=document.getElementById('topBody');
+  const empty=document.getElementById('topEmpty');
+  empty.hidden=topRecommendations.length>0 && !topLoadMessage;
+  empty.textContent=topLoadMessage || 'No instruments are currently listed in data/top_instruments.csv.';
+  tbody.innerHTML=getTopRows().map(item=>{
+    const record=item.record;
+    const id=record?.id || '';
+    const mark=id && viewed.has(id) ? ' <span class="viewed-marker" title="Viewed">✓ Viewed</span>' : '';
+    const label=item.displayName ? escapeHTML(item.displayName) : `${escapeHTML(item.name)}${item.acronym ? ` <span class="acronym">(${escapeHTML(item.acronym)})</span>` : ''}`;
+    const href=id ? recordUrl(id) : null;
+    const note=item.note ? `<div class="top-note">${escapeHTML(item.note)}</div>` : '';
+    const name=href
+      ? `<a class="instrument-record-link top-name" data-record-id="${escapeHTML(id)}" href="${escapeHTML(href.pathname+href.search+href.hash)}">${label}</a>${mark}${note}`
+      : `<span class="top-name">${label}</span><div class="top-not-linked">Full record unavailable or ambiguous in the current dataset</div>${note}`;
+    const width=Math.round(item.votes/maxVotes*100);
+    const rowClass=id ? 'instrument-row' : '';
+    return `<tr class="${rowClass}" ${id ? `data-record-id="${escapeHTML(id)}" tabindex="0"` : ''}>
+      <td class="top-rank">${item.rank}</td><td>${name}</td>
+      <td class="top-votes"><div class="top-vote-display"><span class="top-vote-count">${item.votes}</span><span class="top-vote-track" aria-hidden="true"><span class="top-vote-fill" style="display:block;width:${width}%"></span></span></div></td>
+    </tr>`;
+  }).join('');
+  tbody.querySelectorAll('tr.instrument-row').forEach(row=>{
+    row.addEventListener('click',e=>{
+      if(e.target.closest('a')) return;
+      openRecord(row.dataset.recordId,{fromResults:true});
+    });
+    row.addEventListener('keydown',e=>{
+      if(e.target.closest('a')) return;
+      if(e.key==='Enter' || e.key===' '){e.preventDefault();openRecord(row.dataset.recordId,{fromResults:true});}
+    });
+  });
+  tbody.querySelectorAll('.instrument-record-link').forEach(link=>{
+    link.addEventListener('click',e=>{
+      e.stopPropagation();
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button!==0) return;
+      e.preventDefault();openRecord(link.dataset.recordId,{fromResults:true});
+    });
+  });
+}
+function updateResultsCount(){
+  const top=currentView==='top';
+  document.getElementById('count').textContent=top ? topRecommendations.length : filteredRows().length;
+  document.getElementById('countLabel').textContent=top ? 'instruments recommended for consideration' : 'instruments shown';
+  document.getElementById('toolbar').hidden=top;
+  document.getElementById('reset').hidden=top;
+  document.getElementById('download').textContent=top ? 'Download shortlist (.csv)' : 'Download current dataset (.csv)';
+}
+
 function setResultsView(view,{persist=true,urlMode=null,keepInstrument=false}={}){
-  currentView=['heatmap','feasibility'].includes(view) ? view : 'standard';
+  currentView=['heatmap','feasibility','top'].includes(view) ? view : 'standard';
   const standard=currentView==='standard';
   const heatmap=currentView==='heatmap';
   const feasibility=currentView==='feasibility';
+  const top=currentView==='top';
   document.getElementById('standardView').hidden=!standard;
   document.getElementById('heatmapView').hidden=!heatmap;
   document.getElementById('feasibilityView').hidden=!feasibility;
+  document.getElementById('topView').hidden=!top;
   document.getElementById('standardViewBtn').setAttribute('aria-pressed',String(standard));
   document.getElementById('heatmapViewBtn').setAttribute('aria-pressed',String(heatmap));
   document.getElementById('feasibilityViewBtn').setAttribute('aria-pressed',String(feasibility));
+  document.getElementById('topViewBtn').setAttribute('aria-pressed',String(top));
   document.getElementById('viewHelp').textContent=standard
     ? 'Browse the summary table, then select an instrument to open its full record.'
     : heatmap
       ? 'This view provides a breakdown of our Domain Match assessment for Health-Related Quality of Life, showing how each instrument aligns with the components configured for this core domain.'
-      : 'Compare all feasibility ratings and open-text fields across instruments. Scroll horizontally to see additional columns. Hover, focus, or select a coloured rating to view a description of its classification.';
+      : feasibility
+        ? 'Compare all feasibility ratings and open-text fields across instruments. Scroll horizontally to see additional columns. Hover, focus, or select a coloured rating to view a description of its classification.'
+        : 'Review the voting shortlist and open any linked instrument to see its full record.';
   document.getElementById('viewTip').textContent=standard
     ? 'Tip: select any row to open the full instrument record.'
     : heatmap
       ? 'Tip: select an instrument name to open its full record; coloured cells show component ratings.'
-      : 'Tip: use the scroll buttons or the horizontal scrollbar to move across feasibility columns; select an instrument name to open its full record.';
+      : feasibility
+        ? 'Tip: use the scroll buttons or the horizontal scrollbar to move across feasibility columns; select an instrument name to open its full record.'
+        : 'Tip: select a linked instrument to open its record. This shortlist is not filtered by the main database search.';
+  updateResultsCount();
   if(persist){
     try{ localStorage.setItem(RESULTS_VIEW_KEY,currentView); }catch{}
   }
@@ -937,6 +1099,7 @@ function buildInterface(){
   document.getElementById('standardViewBtn').addEventListener('click',()=>setResultsView('standard',{urlMode:'push'}));
   document.getElementById('heatmapViewBtn').addEventListener('click',()=>setResultsView('heatmap',{urlMode:'push'}));
   document.getElementById('feasibilityViewBtn').addEventListener('click',()=>setResultsView('feasibility',{urlMode:'push'}));
+  document.getElementById('topViewBtn').addEventListener('click',()=>setResultsView('top',{urlMode:'push'}));
   document.getElementById('feasibilityScrollLeft').addEventListener('click',()=>document.getElementById('feasibilityTableWrap').scrollBy({left:-480,behavior:'smooth'}));
   document.getElementById('feasibilityScrollRight').addEventListener('click',()=>document.getElementById('feasibilityTableWrap').scrollBy({left:480,behavior:'smooth'}));
 
@@ -985,7 +1148,8 @@ function render(){
   const heatmapEmpty=document.getElementById('heatmapEmpty');
   const feasibilityEmpty=document.getElementById('feasibilityEmpty');
 
-  document.getElementById('count').textContent=rows.length;
+  updateResultsCount();
+  renderTopRecommendations();
   empty.hidden=rows.length!==0;
 
   tbody.innerHTML=rows.map((record,index)=>{
@@ -1100,7 +1264,7 @@ document.getElementById('clearViewed').onclick=clearViewedInstruments;
 const dialog=document.getElementById('dialog');
 
 function updateRecordNavigation(){
-  const rows=filteredRows();
+  const rows=currentRecordRows();
   const currentIndex=rows.findIndex(record=>(record.id || '')===currentRecordId);
   const previousButton=document.getElementById('previousInstrument');
   const nextButton=document.getElementById('nextInstrument');
@@ -1268,7 +1432,8 @@ dialog.addEventListener('close',()=>{
   requestAnimationFrame(()=>{
     window.scrollTo({top:resultsScrollY,behavior:'auto'});
     if(targetId){
-      const row=[...document.querySelectorAll('.instrument-row')].find(r=>r.dataset.recordId===targetId);
+      const activeView=document.getElementById(currentView==='top' ? 'topView' : currentView==='heatmap' ? 'heatmapView' : currentView==='feasibility' ? 'feasibilityView' : 'standardView');
+      const row=[...activeView.querySelectorAll('tr[data-record-id]')].find(r=>r.dataset.recordId===targetId);
       if(row){ row.classList.add('return-highlight'); row.focus({preventScroll:true}); }
     }
   });
@@ -1296,8 +1461,14 @@ document.addEventListener('keydown',e=>{
 
 function csvEscape(v){const s=String(v??'');return /[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s}
 document.getElementById('download').onclick=()=>{
-  const csv=[instrumentHeaders.join(','),...instruments.map(x=>instrumentHeaders.map(k=>csvEscape(x[k])).join(','))].join('\n');
-  const a=document.createElement('a');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='asah_hrqol_measurement_instrument_database.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),0);
+  const shortlist=currentView==='top';
+  const csv=shortlist
+    ? [['Rank','Instrument','Acronym','Votes','Note'],...getTopRows().map(item=>[item.rank,item.name,item.acronym,item.votes,item.note])]
+        .map(row=>row.map(csvEscape).join(',')).join('\n')
+    : [instrumentHeaders.join(','),...instruments.map(x=>instrumentHeaders.map(k=>csvEscape(x[k])).join(','))].join('\n');
+  const a=document.createElement('a');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.href=url;a.download=shortlist ? 'asah_hrqol_top_instruments.csv' : 'asah_hrqol_measurement_instrument_database.csv';
+  a.click();setTimeout(()=>URL.revokeObjectURL(url),0);
 };
 
 
@@ -1381,9 +1552,10 @@ function cleanUpPrint(){
 }
 
 function preparePrintView(){
-  const titles={standard:'Overview',heatmap:'Domain Match',feasibility:'Feasibility'};
+  const titles={standard:'Overview',heatmap:'Domain Match',feasibility:'Feasibility',top:'Top Instruments for Consideration'};
   document.getElementById('printViewTitle').textContent=`HRQoL — ${titles[currentView] || titles.standard}`;
-  document.getElementById('printViewCount').textContent=`${filteredRows().length} instruments shown`;
+  document.getElementById('printViewCount').textContent=currentView==='top'
+    ? `${topRecommendations.length} recommended instruments` : `${filteredRows().length} instruments shown`;
   const activeFilters=[];
   const term=document.getElementById('search').value.trim();
   if(term) activeFilters.push(`Search: ${term}`);
@@ -1392,8 +1564,9 @@ function preparePrintView(){
     const item=fields.find(f=>f.field===field);
     activeFilters.push(`${item?.label || field}: ${control.value}`);
   }
-  document.getElementById('printFilterSummary').textContent=activeFilters.length
-    ? `Filters — ${activeFilters.join(' · ')}` : 'All results (no filters)';
+  document.getElementById('printFilterSummary').textContent=currentView==='top'
+    ? 'Complete voting shortlist (search and filters not applied)'
+    : activeFilters.length ? `Filters — ${activeFilters.join(' · ')}` : 'All results (no filters)';
   document.getElementById('printGeneratedDate').textContent=`Printed ${new Date().toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'})}`;
 }
 
@@ -1417,10 +1590,11 @@ document.getElementById('printInstrument').addEventListener('click',()=>{
 
 async function init(){
   try{
-    const [instrumentResponse,fieldResponse,badgeResponse]=await Promise.all([
+    const [instrumentResponse,fieldResponse,badgeResponse,topResponse]=await Promise.all([
       fetch('data/instruments.csv',{cache:'no-store'}),
       fetch('data/fields.csv',{cache:'no-store'}),
-      fetch('data/badge_styles.csv',{cache:'no-store'})
+      fetch('data/badge_styles.csv',{cache:'no-store'}),
+      fetch('data/top_instruments.csv',{cache:'no-store'}).catch(()=>null)
     ]);
     if(!instrumentResponse.ok) throw new Error(`Could not load instruments.csv (HTTP ${instrumentResponse.status})`);
     if(!fieldResponse.ok) throw new Error(`Could not load fields.csv (HTTP ${fieldResponse.status})`);
@@ -1434,6 +1608,13 @@ async function init(){
     instrumentHeaders=instrumentData.headers;
     fields=fieldData.records;
     badgeStyles=[...badgeData.records,...DEFAULT_BADGE_STYLES];
+    if(topResponse && topResponse.ok){
+      try{ topRecommendations=loadTopRecommendations(parseCSV(await topResponse.text())); }
+      catch(error){ topLoadMessage=error.message; console.warn(error); }
+    }else{
+      topLoadMessage='Could not load data/top_instruments.csv. Upload the file to the data/ folder to populate this tab.';
+      console.warn(topLoadMessage);
+    }
     fields=fields.filter(f=>instrumentHeaders.includes(f.field));
     buildInterface(); render();
 
