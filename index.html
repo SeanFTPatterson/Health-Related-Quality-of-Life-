@@ -308,7 +308,7 @@
   </div>
 
   <section id="topView" hidden aria-label="Top instruments recommended for consideration">
-     <p class="top-intro">The instruments below received votes for further consideration, ordered from most to fewest votes. Equal vote totals share the same rank. These votes do not represent final Core Outcome Set endorsement.</p>
+     <p class="top-intro">The instruments below received votes for further consideration, ordered from most to fewest votes. Equal vote totals share a rank, with consecutive ranks for the next distinct vote total. These votes do not represent final Core Outcome Set endorsement.</p>
      <div class="table-card"><div class="table-wrap"><table class="top-table">
        <thead><tr><th scope="col" class="top-rank">Rank</th><th scope="col">Instrument</th><th scope="col" class="top-votes">Votes</th></tr></thead>
        <tbody id="topBody"></tbody>
@@ -971,7 +971,7 @@ function findTopRecord(recommendation){
 function getTopRows(){
   let previousVotes=null,rank=0;
   return [...topRecommendations].sort((a,b)=>b.votes-a.votes).map((recommendation,index)=>{
-    if(recommendation.votes!==previousVotes) rank=index+1;
+    if(recommendation.votes!==previousVotes) rank+=1;
     previousVotes=recommendation.votes;
     return {...recommendation,rank,record:findTopRecord(recommendation)};
   });
